@@ -8,6 +8,7 @@ namespace stringent
   decltype(auto) explode(const  std::string& s, char c)
   {
     auto res=std::vector<std::string>();
+    res.reserve(s.size());
     int last_index=0,pos;
     do{
       pos=s.find(c,last_index);
