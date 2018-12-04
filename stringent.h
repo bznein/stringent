@@ -12,7 +12,7 @@ namespace stringent
     int last_index=0,pos;
     do{
       pos=s.find(c,last_index);
-      res.emplace_back(s.substr(last_index,pos));
+      res.emplace_back(s.substr(last_index,pos-last_index));
       last_index=pos+1;
     }
     while(pos!=std::string::npos);
