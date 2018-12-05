@@ -7,18 +7,18 @@
 namespace stringent
 {
   decltype(auto) explode(const  std::string& s, char c)
-  {
-    auto res=std::vector<std::string>();
-    res.reserve(s.size());
-    int last_index=0,pos;
-    do{
-      pos=s.find(c,last_index);
-      res.emplace_back(s.substr(last_index,pos-last_index));
-      last_index=pos+1;
+    {
+      auto res=std::vector<std::string>();
+      res.reserve(s.size());
+      int last_index=0,pos;
+      do{
+        pos=s.find(c,last_index);
+        res.emplace_back(s.substr(last_index,pos-last_index));
+        last_index=pos+1;
+      }
+      while(pos!=std::string::npos);
+      return res;
     }
-    while(pos!=std::string::npos);
-    return res;
-  }
 
   decltype(auto) occurrences(const std::string& s, char c)
     {
@@ -35,4 +35,40 @@ namespace stringent
         }
       return occurr;
     }
+
+  char swapCase(char c)
+  {
+    if (std::islower(c))
+      return std::toupper(c);
+    return std::tolower(c);
+  }
+
+
+  declype(auto) removeOccurrencesCaseInsensitive(const string &s, char c)
+  {
+    auto c2=swapCase(c);
+    stringstream ss;
+
+    for (auto elem:s)
+      {
+        if (elem != c && elem != c2)
+          ss << elem;
+      }
+    return ss.str();
+  }
+  
+  decltype(auto) removeOccurrences(const string &s, char c)
+  {
+    auto c2=swapCase(c);
+    stringstream ss;
+
+    for (auto elem:s)
+      {
+        if (elem != c && elem != c2)
+          ss << elem;
+      }
+    return ss.str();
+  }
+
+  
 }
