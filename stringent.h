@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <iostream>
 #include <map>
+
 namespace stringent
 {
   decltype(auto) explode(const  std::string& s, char c)
