@@ -56,15 +56,14 @@ namespace stringent
       }
     return ss.str();
   }
-  
+
   decltype(auto) removeOccurrences(const string &s, char c)
   {
-    auto c2=swapCase(c);
     stringstream ss;
 
     for (auto elem:s)
       {
-        if (elem != c && elem != c2)
+        if (elem != c)
           ss << elem;
       }
     return ss.str();
