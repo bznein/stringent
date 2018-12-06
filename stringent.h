@@ -14,17 +14,27 @@ namespace stringent
     auto default_function=[](std::string s){return s;};
   }
 
-  /* Todo: generic version that takes a function to apply on each chunck and creates a vector of that type */
   template<typename F=decltype(constants::default_function), typename R = typename std::result_of<F&(std::string)>::type>
-    std::vector<R> explode(const  std::string& s, char c,F f=constants::default_function)
+    std::vector<R> explode(const  std::string& s, const std::string& c,F f=constants::default_function)
     {
 
       auto res=std::vector<R>();
       res.reserve(s.size());
-      int last_index=0,pos;
+      int last_index=0;
+      size_t pos;
       do{
-        pos=s.find(c,last_index);
-        res.emplace_back(f(s.substr(last_index,pos-last_index)));
+        int closest_index=s.size();
+        for (auto ch: c)
+          {
+            if (auto p=s.find(ch,last_index); p!=std::string::npos && p<closest_index)
+              closest_index=p;
+          }
+        if (closest_index==s.size())
+          pos=std::string::npos;
+        else
+          pos=closest_index;
+        if (pos!=last_index)
+             res.emplace_back(f(s.substr(last_index,pos-last_index)));
         last_index=pos+1;
       }
       while(pos!=std::string::npos);
