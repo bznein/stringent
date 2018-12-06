@@ -14,6 +14,16 @@ namespace stringent
     auto default_function=[](std::string s){return s;};
   }
 
+  namespace chars
+  {
+    char swapCase(char c)
+    {
+      if (std::islower(c))
+        return std::toupper(c);
+      return std::tolower(c);
+    }
+  }
+
   namespace aux
   {
     template<typename Collection>
@@ -25,6 +35,30 @@ namespace stringent
           };
       }
   }
+
+   decltype(auto) swapCase(const std::string& s)
+	{
+		std::stringstream ss;
+		for (auto c:s)
+			ss << chars::swapCase(c);
+		return ss.str();
+	}
+
+  decltype(auto) lowerCase(const std::string& s)
+  {
+	std::stringstream ss;
+	for (auto c:s)
+		ss << static_cast<char>(std::tolower(c));
+	return ss.str();
+  }
+  decltype(auto) upperCase(const std::string& s)
+  {
+	std::stringstream ss;
+	for (auto c:s)
+		ss << static_cast<char>(std::toupper(c));
+	return ss.str();
+  }
+
 
   template<typename F=decltype(constants::default_function), typename R = typename std::result_of<F&(std::string)>::type>
     std::vector<R> explode(const  std::string& s, const std::string& c,F f=constants::default_function)
@@ -64,15 +98,7 @@ namespace stringent
       return occurr;
     }
 
-  namespace chars
-  {
-    char swapCase(char c)
-    {
-      if (std::islower(c))
-        return std::toupper(c);
-      return std::tolower(c);
-    }
-  }
+
 
 
   decltype(auto) removeOccurrencesCaseInsensitive(const std::string &s, char c)
