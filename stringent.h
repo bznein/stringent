@@ -5,6 +5,7 @@
 #include <iostream>
 #include <map>
 #include <type_traits>
+#include <numeric>
 #include <functional>
 
 namespace stringent
@@ -60,6 +61,7 @@ namespace stringent
   }
 
 
+
   template<typename F=decltype(constants::default_function), typename R = typename std::result_of<F&(std::string)>::type>
     std::vector<R> explode(const  std::string& s, const std::string& c,F f=constants::default_function)
     {
@@ -81,6 +83,13 @@ namespace stringent
         res.emplace_back(s.substr(last_index));
       return res;
     }
+
+  decltype(auto) removeOccurrences(const std::string&s, const std::string&c)
+  {
+	auto temp=stringent::explode(s,c);
+	std::string st;
+	return std::accumulate(temp.begin(),temp.end(),st);
+  }
 
   decltype(auto) occurrences(const std::string& s, char c)
     {
