@@ -4,17 +4,27 @@
 #include <algorithm>
 #include <iostream>
 #include <map>
+#include <type_traits>
+#include <functional>
 
 namespace stringent
 {
-  decltype(auto) explode(const  std::string& s, char c)
+  namespace constants
+  {
+    auto default_function=[](std::string s){return s;};
+  }
+
+  /* Todo: generic version that takes a function to apply on each chunck and creates a vector of that type */
+  template<typename F=decltype(constants::default_function), typename R = typename std::result_of<F&(std::string)>::type>
+    std::vector<R> explode(const  std::string& s, char c,F f=constants::default_function)
     {
-      auto res=std::vector<std::string>();
+
+      auto res=std::vector<R>();
       res.reserve(s.size());
       int last_index=0,pos;
       do{
         pos=s.find(c,last_index);
-        res.emplace_back(s.substr(last_index,pos-last_index));
+        res.emplace_back(f(s.substr(last_index,pos-last_index)));
         last_index=pos+1;
       }
       while(pos!=std::string::npos);
@@ -37,18 +47,21 @@ namespace stringent
       return occurr;
     }
 
-  char swapCase(char c)
+  namespace chars
   {
-    if (std::islower(c))
-      return std::toupper(c);
-    return std::tolower(c);
+    char swapCase(char c)
+    {
+      if (std::islower(c))
+        return std::toupper(c);
+      return std::tolower(c);
+    }
   }
 
 
-  declype(auto) removeOccurrencesCaseInsensitive(const string &s, char c)
+  decltype(auto) removeOccurrencesCaseInsensitive(const std::string &s, char c)
   {
-    auto c2=swapCase(c);
-    stringstream ss;
+    auto c2=chars::swapCase(c);
+    std::stringstream ss;
 
     for (auto elem:s)
       {
@@ -58,9 +71,9 @@ namespace stringent
     return ss.str();
   }
 
-  decltype(auto) removeOccurrences(const string &s, char c)
+  decltype(auto) removeOccurrences(const std::string &s, char c)
   {
-    stringstream ss;
+    std::stringstream ss;
 
     for (auto elem:s)
       {
@@ -70,5 +83,9 @@ namespace stringent
     return ss.str();
   }
 
+  decltype(auto) reverse(const std::string &s)
+    {
+      return std::string(s.rbegin(),s.rend());
+    }
   
 }

@@ -4,9 +4,8 @@
 using namespace std;
 int main()
 {
-  auto  a=stringent::occurrences("aasdaser");
-  for ( auto const&  [key, val]: a)
-    {
-      cout << key << ", " << val << endl;
-    }
+  auto  a=std::string("1 2 3");
+
+  for(auto i: stringent::explode<>(a,' ',[](string s){return std::stoi(s);}))
+    int b=i;
 }
