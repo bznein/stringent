@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/bznein/stringent.svg?branch=master)](https://travis-ci.com/bznein/stringent)
+
 # Stringent
 
 ## A minimal, header-only collection of string functions
