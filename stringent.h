@@ -37,30 +37,28 @@ namespace stringent
       }
   }
 
-   decltype(auto) swapCase(const std::string& s)
-	{
-		std::stringstream ss;
-		for (auto c:s)
-			ss << chars::swapCase(c);
-		return ss.str();
-	}
+  decltype(auto) swapCase(const std::string& s)
+    {
+      std::stringstream ss;
+      for (auto c:s)
+        ss << chars::swapCase(c);
+      return ss.str();
+    }
 
   decltype(auto) lowerCase(const std::string& s)
-  {
-	std::stringstream ss;
-	for (auto c:s)
-		ss << static_cast<char>(std::tolower(c));
-	return ss.str();
-  }
+    {
+      std::stringstream ss;
+      for (auto c:s)
+        ss << static_cast<char>(std::tolower(c));
+      return ss.str();
+    }
   decltype(auto) upperCase(const std::string& s)
-  {
-	std::stringstream ss;
-	for (auto c:s)
-		ss << static_cast<char>(std::toupper(c));
-	return ss.str();
-  }
-
-
+    {
+      std::stringstream ss;
+      for (auto c:s)
+        ss << static_cast<char>(std::toupper(c));
+      return ss.str();
+    }
 
   template<typename F=decltype(constants::default_function), typename R = typename std::result_of<F&(std::string)>::type>
     std::vector<R> explode(const  std::string& s, const std::string& c,F f=constants::default_function)
@@ -75,7 +73,7 @@ namespace stringent
           if (c.find(*(letter))!=std::string::npos)
             {
               if(index(letter)!=last_index)
-                  res.emplace_back(s.substr(last_index,index(letter)-last_index));
+                res.emplace_back(s.substr(last_index,index(letter)-last_index));
               last_index=index(letter)+1;
             }
         }
@@ -85,11 +83,11 @@ namespace stringent
     }
 
   decltype(auto) removeOccurrences(const std::string&s, const std::string&c)
-  {
-	auto temp=stringent::explode(s,c);
-	std::string st;
-	return std::accumulate(temp.begin(),temp.end(),st);
-  }
+    {
+      auto temp=stringent::explode(s,c);
+      std::string st;
+      return std::accumulate(temp.begin(),temp.end(),st);
+    }
 
   decltype(auto) occurrences(const std::string& s, char c)
     {
@@ -111,29 +109,29 @@ namespace stringent
 
 
   decltype(auto) removeOccurrencesCaseInsensitive(const std::string &s, char c)
-  {
-    auto c2=chars::swapCase(c);
-    std::stringstream ss;
+    {
+      auto c2=chars::swapCase(c);
+      std::stringstream ss;
 
-    for (auto elem:s)
-      {
-        if (elem != c && elem != c2)
-          ss << elem;
-      }
-    return ss.str();
-  }
+      for (auto elem:s)
+        {
+          if (elem != c && elem != c2)
+            ss << elem;
+        }
+      return ss.str();
+    }
 
   decltype(auto) removeOccurrences(const std::string &s, char c)
-  {
-    std::stringstream ss;
+    {
+      std::stringstream ss;
 
-    for (auto elem:s)
-      {
-        if (elem != c)
-          ss << elem;
-      }
-    return ss.str();
-  }
+      for (auto elem:s)
+        {
+          if (elem != c)
+            ss << elem;
+        }
+      return ss.str();
+    }
 
   decltype(auto) reverse(const std::string &s)
     {
