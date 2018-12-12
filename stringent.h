@@ -73,12 +73,12 @@ namespace stringent
           if (c.find(*(letter))!=std::string::npos)
             {
               if(index(letter)!=last_index)
-                res.emplace_back(s.substr(last_index,index(letter)-last_index));
+                res.emplace_back(f(s.substr(last_index,index(letter)-last_index)));
               last_index=index(letter)+1;
             }
         }
       if (last_index!=s.size()-2)
-        res.emplace_back(s.substr(last_index));
+        res.emplace_back(f(s.substr(last_index)));
       return res;
     }
 
