@@ -77,7 +77,7 @@ namespace stringent
               last_index=index(letter)+1;
             }
         }
-      if (last_index!=s.size()-2)
+      if (last_index!=s.size()-1)
         res.emplace_back(f(s.substr(last_index)));
       return res;
     }
